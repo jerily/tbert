@@ -1,0 +1,72 @@
+diff --git a/bert.cpp b/bert.cpp
+index 0dc09f8..467a61f 100644
+--- a/bert.cpp
++++ b/bert.cpp
+@@ -532,6 +532,17 @@ struct bert_ctx * bert_load_from_file(const char *fname)
+             layer.ff_o_b = ggml_new_tensor_1d(ctx, GGML_TYPE_F32, n_embd);
+ 
+             // map by name
++            model.tensors["encoder.layer." + std::to_string(i) + ".attention.attn.q.weight"] = layer.q_w;
++            model.tensors["encoder.layer." + std::to_string(i) + ".attention.attn.q.bias"] = layer.q_b;
++            model.tensors["encoder.layer." + std::to_string(i) + ".attention.attn.k.weight"] = layer.k_w;
++            model.tensors["encoder.layer." + std::to_string(i) + ".attention.attn.k.bias"] = layer.k_b;
++            model.tensors["encoder.layer." + std::to_string(i) + ".attention.attn.v.weight"] = layer.v_w;
++            model.tensors["encoder.layer." + std::to_string(i) + ".attention.attn.v.bias"] = layer.v_b;
++            model.tensors["encoder.layer." + std::to_string(i) + ".attention.LayerNorm.weight"] = layer.ln_att_w;
++            model.tensors["encoder.layer." + std::to_string(i) + ".attention.LayerNorm.bias"] = layer.ln_att_b;
++            model.tensors["encoder.layer." + std::to_string(i) + ".attention.attn.o.weight"] = layer.o_w;
++            model.tensors["encoder.layer." + std::to_string(i) + ".attention.attn.o.bias"] = layer.o_b;
++
+ 
+             model.tensors["encoder.layer." + std::to_string(i) + ".attention.self.query.weight"] = layer.q_w;
+             model.tensors["encoder.layer." + std::to_string(i) + ".attention.self.query.bias"] = layer.q_b;
+@@ -588,6 +599,7 @@ struct bert_ctx * bert_load_from_file(const char *fname)
+ 
+             std::string name(length, 0);
+             fin.read(&name[0], length);
++            fprintf(stderr, "%s: loading tensor '%s' - please wait ...\n", __func__, name.data());
+ 
+             if (model.tensors.find(name.data()) == model.tensors.end())
+             {
+diff --git a/models/CMakeLists.txt b/models/CMakeLists.txt
+index 9c65928..dc9c4ca 100644
+--- a/models/CMakeLists.txt
++++ b/models/CMakeLists.txt
+@@ -1,2 +1,5 @@
++include_directories(../ggml/include ../)
++link_directories(../build ../build/ggml/src)
+ add_executable(quantize quantize.cpp)
+ target_link_libraries(quantize PRIVATE bert ggml)
++
+diff --git a/models/convert-to-ggml.py b/models/convert-to-ggml.py
+old mode 100644
+new mode 100755
+index 7ef5b80..d27546c
+--- a/models/convert-to-ggml.py
++++ b/models/convert-to-ggml.py
+@@ -72,7 +72,7 @@ for i in range(hparams["vocab_size"]):
+ 
+ for name in list_vars.keys():
+     data = list_vars[name].squeeze().numpy()
+-    if name in ['embeddings.position_ids', 'pooler.dense.weight', 'pooler.dense.bias']:
++    if name in ['embeddings.position_ids', 'pooler.dense.weight', 'pooler.dense.bias', 'encoder.relative_attention_bias.weight']:
+         continue
+     print("Processing variable: " + name + " with shape: ", data.shape)
+ 
+diff --git a/models/run_conversions.sh b/models/run_conversions.sh
+index c6cef5e..0d96691 100755
+--- a/models/run_conversions.sh
++++ b/models/run_conversions.sh
+@@ -2,7 +2,7 @@
+ 
+ model=$1
+ 
+-python3 convert-to-ggml.py ${model}/ 0
+-python3 convert-to-ggml.py ${model}/ 1
+-../build/bin/quantize ${model}/ggml-model-f16.bin ${model}/ggml-model-q4_0.bin 2
+-../build/bin/quantize ${model}/ggml-model-f16.bin ${model}/ggml-model-q4_1.bin 3
+\ No newline at end of file
++python3.10 convert-to-ggml.py ${model}/ 0
++python3.10 convert-to-ggml.py ${model}/ 1
++./quantize ${model}/ggml-model-f16.bin ${model}/ggml-model-q4_0.bin 2
++./quantize ${model}/ggml-model-f16.bin ${model}/ggml-model-q4_1.bin 3
