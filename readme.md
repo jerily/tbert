@@ -1,6 +1,7 @@
 ## Try it out using docker
 ```
-git clone --recurse-submodules git@github.com:jerily/tbert.git
+git clone --recurse-submodules https://github.com/jerily/tbert.git
+cd tbert
 docker build . -t tbert:latest
 docker run --rm -it --entrypoint bash tbert:latest
 ```
