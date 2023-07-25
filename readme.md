@@ -1,4 +1,14 @@
 ```
+git clone --recurse-submodules git@github.com:jerily/tbert.git
+cd tbert
+mkdir build
+cd build
+cmake ..
+make
+tclsh example.tcl ../models/all-MiniLM-L12-v2/ggml-model-q4_0.bin
+
+
+
 mkdir repos
 cd repos
 
