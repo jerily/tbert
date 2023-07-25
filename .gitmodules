@@ -1,0 +1,3 @@
+[submodule "bert.cpp"]
+	path = bert.cpp
+	url = git@github.com-jerily:jerily/bert.cpp.git
