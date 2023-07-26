@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.22.1)
 project(tbert LANGUAGES CXX C)
 
+set(TARGET tbert)
 set(CMAKE_C_STANDARD   11)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
@@ -24,6 +25,9 @@ if (NAVISERVER)
     target_link_directories(tbert PRIVATE ${NAVISERVER}/lib)
     target_link_libraries(tbert PRIVATE bert ggml tcl8.6 nsd nsthread)
     target_compile_options(tbert PRIVATE -DUSE_NAVISERVER)
+    install(TARGETS ${TARGET}
+            LIBRARY DESTINATION ${NAVISERVER}/lib
+            )
 else ()
     include_directories(bert.cpp/ggml/include bert.cpp/)
     link_directories(bert.cpp/build bert.cpp/build/ggml/src)
