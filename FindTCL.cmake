@@ -56,13 +56,9 @@ set(TCL_POSSIBLE_LIB_PATHS
 
 set(TCL_POSSIBLE_LIB_PATH_SUFFIXES
   lib/tcl/tcl8.7
-  lib/tcl/tk8.7
   lib/tcl/tcl8.6
-  lib/tcl/tk8.6
   lib/tcl/tcl8.5
-  lib/tcl/tk8.5
   lib/tcl/tcl8.4
-  lib/tcl/tk8.4
 )
 
 if(WIN32)
@@ -118,13 +114,9 @@ set(TCL_POSSIBLE_INCLUDE_PATHS
 set(TCL_POSSIBLE_INCLUDE_PATH_SUFFIXES
   include/tcl${TCL_LIBRARY_VERSION}
   include/tcl8.7
-  include/tk8.7
   include/tcl8.6
-  include/tk8.6
   include/tcl8.5
-  include/tk8.5
   include/tcl8.4
-  include/tk8.4
   include/tcl8.3
   include/tcl8.2
   include/tcl8.0
