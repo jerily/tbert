@@ -164,3 +164,10 @@ int Tbert_Init(Tcl_Interp *interp) {
 
     return Tcl_PkgProvide(interp, "tbert", "0.1");
 }
+
+#ifdef USE_NAVISERVER
+int Ns_ModuleInit(const char *server, const char *module) {
+    Ns_TclRegisterTrace(server, (Ns_TclTraceProc *) Tbert_Init, server, NS_TCL_TRACE_CREATE);
+    return NS_OK;
+}
+#endif
