@@ -12,4 +12,6 @@ MOD      =  libtbert.so
 #
 MODOBJS     = library.o
 
+MODLIBS  += -lbert -lggml
+
 include  $(NAVISERVER)/include/Makefile.module
