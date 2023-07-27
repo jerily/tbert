@@ -1,4 +1,6 @@
-# Tcl/C extension for computing BERT vector embeddings
+# tbert
+
+TCL/C extension for computing BERT vector embeddings
 
 ## Tcl Commands
 ```
