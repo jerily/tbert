@@ -1,3 +1,20 @@
+# Tcl/C extension for computing BERT vector embeddings
+
+## Tcl Commands
+```
+# Load model from file.
+# ::tbert::load_model model_name model_file
+::tbert::load_model mymodel "./models/all-MiniLM-L12-v2/ggml-model-q4_0.bin"
+
+# Compute the BERT vector embedding for a given text.
+# ::tbert::ev model_name text
+::tbert::ev mymodel "This is a test."
+
+# Unload model
+# ::tbert::unload_model model_name
+::tbert::unload_model mymodel
+```
+
 ## Try it out using docker
 ```
 git clone --recurse-submodules https://github.com/jerily/tbert.git
