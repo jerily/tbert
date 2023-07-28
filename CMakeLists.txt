@@ -27,7 +27,7 @@ if (NAVISERVER)
     target_link_libraries(tbert PRIVATE bert ggml ${TCL_LIBRARY} nsd nsthread)
     target_compile_options(tbert PRIVATE -DUSE_NAVISERVER)
     install(TARGETS ${TARGET}
-            LIBRARY DESTINATION ${NAVISERVER}/lib
+            LIBRARY DESTINATION ${NAVISERVER}/bin
     )
 else ()
     include_directories(bert.cpp/ggml/include bert.cpp/)
