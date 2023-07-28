@@ -1,7 +1,5 @@
-#include "library.h"
 #include "bert.h"
-
-#include <stdio.h>
+#include "library.h"
 
 #ifdef DEBUG
 # define DBG(x) x

@@ -3,7 +3,6 @@
 
 #ifdef USE_NAVISERVER
 #include "ns.h"
-#include <stdint.h>
 #else
 #include <tcl.h>
 #endif
