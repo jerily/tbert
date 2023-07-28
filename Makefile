@@ -15,5 +15,6 @@ MODOBJS     = library.o
 MODLIBS  += -lbert -lggml
 
 CFLAGS += -DUSE_NAVISERVER
+CXXFLAGS += $(CFLAGS)
 
 include  $(NAVISERVER)/include/Makefile.module
