@@ -1,12 +1,13 @@
 #ifndef TBERT_LIBRARY_H
 #define TBERT_LIBRARY_H
 
-#include <tcl.h>
-
 #ifdef USE_NAVISERVER
-#include <cstdint>
 #include "ns.h"
+#include <stdint.h>
+#else
+#include <tcl.h>
 #endif
+
 
 #ifdef __cplusplus
 extern "C" {
