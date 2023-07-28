@@ -48,6 +48,7 @@ mkdir build
 cd build
 cmake .. -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release
 make
+make install
 tclsh ../example.tcl /path/to/models/all-MiniLM-L12-v2/ggml-model-q4_0.bin
 ```
 For NaviServer (using cmake):
