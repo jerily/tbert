@@ -39,8 +39,10 @@ docker rm -v $id
 ls -la ggml-model-q4_0.bin
 ```
 
-Or, download a model from here:
-https://huggingface.co/skeskinen/ggml/tree/main
+Or, download a model from huggingface:
+```
+git checkout https://huggingface.co/skeskinen/ggml/tree/main
+```
 
 ## Build the library
 For TCL:
