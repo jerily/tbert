@@ -41,7 +41,8 @@ ls -la ggml-model-q4_0.bin
 
 Or, download a model from huggingface:
 ```
-git checkout https://huggingface.co/skeskinen/ggml/tree/main
+git lfs install
+git clone https://huggingface.co/skeskinen/ggml
 ```
 
 ## Build the library
