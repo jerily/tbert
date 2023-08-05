@@ -45,11 +45,28 @@ git lfs install
 git clone https://huggingface.co/skeskinen/ggml
 ```
 
-## Build the library
-For TCL:
-```
+## Clone the repository
+```bash
 git clone --recurse-submodules git@github.com:jerily/tbert.git
 cd tbert
+TBERT_DIR=$(pwd)
+```
+
+## Build the dependencies
+```bash
+cd ${TBERT_DIR}/bert.cpp
+mkdir build
+cd build
+cmake .. -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release
+make
+make install
+```
+
+## Build the library
+For TCL:
+```bash
+# Build the TCL extension
+cd ${TBERT_DIR}
 mkdir build
 cd build
 cmake .. -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release
@@ -60,14 +77,7 @@ tclsh ../example.tcl /path/to/models/all-MiniLM-L12-v2/ggml-model-q4_0.bin
 
 For NaviServer using Makefile:
 ```
-git clone --recurse-submodules git@github.com:jerily/tbert.git
-cd tbert/bert.cpp
-mkdir build
-cd build
-cmake .. -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release
-make
-make install
-cd ..
+cd ${TBERT_DIR}
 make
 make install
 ```
