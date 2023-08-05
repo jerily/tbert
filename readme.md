@@ -52,7 +52,7 @@ cd tbert
 TBERT_DIR=$(pwd)
 ```
 
-## Build the dependencies
+## Build and install the dependencies
 ```bash
 cd ${TBERT_DIR}/bert.cpp
 mkdir build

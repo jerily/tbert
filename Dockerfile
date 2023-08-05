@@ -45,7 +45,15 @@ RUN cd tbert && \
     python3 download-ggml.py download all-MiniLM-L12-v2 q4_0 && \
     ls -la
 
-RUN cd tbert && mkdir build && cd build && \
+# Build and install the dependencies
+RUN cd tbert/bert.cpp && mkdir build && cd build && \
+    cmake .. -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release && \
+    make && \
+    make install
+
+RUN cd tbert && \
+    mkdir build && \
+    cd build && \
     cmake .. -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release && \
     make && \
     make install
