@@ -5,7 +5,7 @@ endif
 #
 # Module name
 #
-MOD      =  libtbert.so
+MOD      =  tbert.so
 
 #
 # Objects to build.
