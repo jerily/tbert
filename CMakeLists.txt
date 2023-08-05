@@ -11,7 +11,7 @@ find_package(Threads REQUIRED)
 
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
-add_library(tbert SHARED library.cc)
+add_library(tbert SHARED MODULE library.cc)
 set_target_properties(tbert PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 #add_compile_options(-g -O0 -DDEBUG -Wall -Wextra -Wconversion)
