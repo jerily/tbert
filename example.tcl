@@ -1,5 +1,3 @@
-set dir [file dirname [info script]]
-lappend auto_path $dir
 package require tbert
 
 if { [llength $argv] != 1 } {
