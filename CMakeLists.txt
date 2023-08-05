@@ -11,8 +11,6 @@ find_package(Threads REQUIRED)
 
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
-add_subdirectory(bert.cpp)
-
 add_library(tbert SHARED library.cc)
 set_target_properties(tbert PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
