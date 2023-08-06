@@ -151,6 +151,18 @@ The above orders the results by finding the euclidean distance
 between the query vector and the vector embeddings in the index.
 The `<->` operator is defined in the pg_embedding extension.
 
+## What it looks like?
+
+We have modified the OpenACS search package to use Semantic Search.
+We have populated the database with food hunter reviews and
+then searched for the query "I hate this dish". As you see from 
+the screenshot full-text search did not return any results, but
+Semantic Search returned many results that are related to the query,
+in essence, to whether someone liked a dish or not.
+
+![Semantic Search](semantic-search.png "Semantic Search")
+
+
 ## Closing Thoughts
 
 Semantic Search is a powerful tool that can be used to find documents.
