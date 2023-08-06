@@ -81,3 +81,7 @@ cd ${TBERT_DIR}
 make
 make install
 ```
+
+## Documentation
+
+See [Semantic Search with tBERT](doc/semantic-search-with-tbert.md) for an introduction to semantic search using tBERT.
