@@ -78,7 +78,7 @@ inference of BERT neural net architecture with pooling and normalization
 from SentenceTransformers (https://www.sbert.net/). That means it can only
 use models that are based on the
 BERT (Bidirectional Encoder Representations for Transformers) architecture.
-Furthermore, bert.cpp uses [https://github.com/ggerganov/ggml](ggml) under
+Furthermore, bert.cpp uses [ggml](https://github.com/ggerganov/ggml) under
 the hood, so it can only use models that are supported by ggml.
 
 You can find
