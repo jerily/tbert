@@ -143,3 +143,21 @@ that implements the FtsEngineDriver service contract.
     }]]
 ```
 
+The above orders the results by finding the euclidean distance
+between the query vector and the vector embeddings in the index.
+The `<->` operator is defined in the pg_embedding extension.
+
+## Closing Thoughts
+
+Semantic Search is a powerful tool that can be used to find documents.
+It can be used in addition to traditional search methods such as
+full-text search (i.e. using inverted index). For example,
+you can use vector similarity search to display a "Related Documents"
+to the user.
+
+## References
+
+* [Enbeddings](https://developers.google.com/machine-learning/crash-course/embeddings/video-lecture)
+* The images and some text are from this [page](https://www.tensorflow.org/text/guide/word_embeddings).
+
+
