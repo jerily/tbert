@@ -73,7 +73,7 @@ concept of "cat" even if the documents do not contain the term "cat".
 ### tBERT
 For this to work, we need to have a way to map terms to concepts.
 This is where tBERT comes in. tBERT is based on
-[https://github.com/skeskinen/bert.cpp](bert.cpp) that does
+[bert.cpp](https://github.com/skeskinen/bert.cpp) that does
 inference of BERT neural net architecture with pooling and normalization
 from SentenceTransformers (https://www.sbert.net/). That means it can only
 use models that are based on the
