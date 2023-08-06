@@ -59,6 +59,10 @@ floating point values that are learned by the language model during training.
 
 ![Word embeddings example](embedding2.png "Word embeddings example")
 
+You can learn more about how embeddings are learned in this
+[lecture video](https://developers.google.com/machine-learning/crash-course/embeddings/video-lecture)
+from Google.
+
 ## Semantic Search
 
 Semantic Search uses vector embeddings to map terms to concepts,
@@ -157,7 +161,6 @@ to the user.
 
 ## References
 
-* [Enbeddings](https://developers.google.com/machine-learning/crash-course/embeddings/video-lecture)
 * The images and some text are from this [page](https://www.tensorflow.org/text/guide/word_embeddings).
 
 
