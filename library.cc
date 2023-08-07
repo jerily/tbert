@@ -1,6 +1,10 @@
 #include "bert.h"
 #include "library.h"
 
+#ifndef UNUSED
+# define UNUSED(x) UNUSED_ ## x __attribute__((__unused__))
+#endif
+
 #ifdef DEBUG
 # define DBG(x) x
 #else
@@ -51,7 +55,7 @@ tbert_GetInternalFromName(const char *name) {
     return ctx;
 }
 
-static int tbert_LoadModelCmd(ClientData  clientData, Tcl_Interp *interp, int objc, Tcl_Obj * const objv[] ) {
+static int tbert_LoadModelCmd(ClientData  UNUSED(clientData), Tcl_Interp *interp, int objc, Tcl_Obj * const objv[] ) {
     DBG(fprintf(stderr,"LoadModelCmd\n"));
 
     CheckArgs(3,3,1,"handle_name filename");
@@ -65,7 +69,7 @@ static int tbert_LoadModelCmd(ClientData  clientData, Tcl_Interp *interp, int ob
     return TCL_OK;
 }
 
-static int tbert_UnloadModelCmd(ClientData  clientData, Tcl_Interp *interp, int objc, Tcl_Obj * const objv[] ) {
+static int tbert_UnloadModelCmd(ClientData  UNUSED(clientData), Tcl_Interp *interp, int objc, Tcl_Obj * const objv[] ) {
     DBG(fprintf(stderr,"UnloadModelCmd\n"));
 
     CheckArgs(2,2,1,"handle_name");
@@ -74,7 +78,7 @@ static int tbert_UnloadModelCmd(ClientData  clientData, Tcl_Interp *interp, int 
     return TCL_OK;
 }
 
-static int tbert_GetVectorCmd(ClientData  clientData, Tcl_Interp *interp, int objc, Tcl_Obj * const objv[] ) {
+static int tbert_GetVectorCmd(ClientData UNUSED(clientData), Tcl_Interp *interp, int objc, Tcl_Obj * const objv[] ) {
     DBG(fprintf(stderr,"GetVectorCmd\n"));
 
     CheckArgs(3,4,1,"handle_name text ?n_threads?");
@@ -92,7 +96,9 @@ static int tbert_GetVectorCmd(ClientData  clientData, Tcl_Interp *interp, int ob
 
     int N = bert_n_max_tokens(ctx);
     // tokenize the prompt
-    bert_vocab_id tokens[N];
+    //bert_vocab_id tokens[N];
+    bert_vocab_id *tokens = (bert_vocab_id *)malloc(sizeof(bert_vocab_id)*(size_t)N);
+
     int n_tokens;
     bert_tokenize(ctx, Tcl_GetString(objv[2]), tokens, &n_tokens, N);
 
@@ -111,7 +117,8 @@ static int tbert_GetVectorCmd(ClientData  clientData, Tcl_Interp *interp, int ob
     );
 
     int n_embd = bert_n_embd(ctx);
-    float embeddings[n_embd];
+    //float embeddings[n_embd];
+    float *embeddings = (float *)malloc(sizeof(float)*(size_t)n_embd);
     bert_eval(ctx, n_threads, tokens, n_tokens, embeddings);
 
     DBG(
@@ -125,11 +132,13 @@ static int tbert_GetVectorCmd(ClientData  clientData, Tcl_Interp *interp, int ob
         Tcl_ListObjAppendElement(interp, result, Tcl_NewDoubleObj(embeddings[i]));
     }
     Tcl_SetObjResult(interp, result);
+    free(embeddings);
+    free(tokens);
     return TCL_OK;
 }
 
 
-static void tbert_ExitHandler(ClientData unused)
+static void tbert_ExitHandler(ClientData UNUSED(unused))
 {
     Tcl_MutexLock(&tbert_NameToInternal_HT_Mutex);
     Tcl_DeleteHashTable(&tbert_NameToInternal_HT);
@@ -138,7 +147,7 @@ static void tbert_ExitHandler(ClientData unused)
 }
 
 
-void tbert_InitModule() {
+static void tbert_InitModule() {
     Tcl_MutexLock(&tbert_NameToInternal_HT_Mutex);
     if (!tbert_ModuleInitialized) {
         Tcl_InitHashTable(&tbert_NameToInternal_HT, TCL_STRING_KEYS);
@@ -164,7 +173,7 @@ int Tbert_Init(Tcl_Interp *interp) {
 }
 
 #ifdef USE_NAVISERVER
-int Ns_ModuleInit(const char *server, const char *module) {
+int Ns_ModuleInit(const char *server, const char *UNUSED(module)) {
     Ns_TclRegisterTrace(server, (Ns_TclTraceProc *) Tbert_Init, server, NS_TCL_TRACE_CREATE);
     return NS_OK;
 }
