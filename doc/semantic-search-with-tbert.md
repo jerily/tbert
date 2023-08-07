@@ -104,7 +104,7 @@ Once you have downloaded the model, you can load it using the
 `::tbert::load` command. For example, the following command loads the
 `bert-base-uncased/ggml-model-f32.bin` model:
 ```tcl
-set model [::tbert::load mymodel bert-base-uncased/ggml-model-f32.bin]
+set model [::tbert::load_model mymodel bert-base-uncased/ggml-model-f32.bin]
 ```
 
 ### Indexing
