@@ -1,5 +1,6 @@
 #include "bert.h"
 #include "library.h"
+#include <cstdlib>
 
 #ifndef UNUSED
 # define UNUSED(x) UNUSED_ ## x __attribute__((__unused__))
