@@ -98,6 +98,15 @@ performance vectorized operations on many hardware platforms. For example,
 the `bert-base-uncased/ggml-model-q4_0.bin` model is 68.8 MB and has a
 quantization precision of 4 bits.
 
+### Loading the model
+
+Once you have downloaded the model, you can load it using the
+`::tbert::load` command. For example, the following command loads the
+`bert-base-uncased/ggml-model-f32.bin` model:
+```tcl
+set model [::tbert::load mymodel bert-base-uncased/ggml-model-f32.bin]
+```
+
 ### Indexing
 
 Once you choose the language model to be used, you can index the documents
