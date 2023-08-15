@@ -47,7 +47,7 @@ git clone https://huggingface.co/skeskinen/ggml
 
 ## Clone the repository
 ```bash
-git clone --recurse-submodules git@github.com:jerily/tbert.git
+git clone --recurse-submodules https://github.com/jerily/tbert.git
 cd tbert
 TBERT_DIR=$(pwd)
 ```
