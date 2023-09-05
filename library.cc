@@ -6,6 +6,9 @@
 # define UNUSED(x) UNUSED_ ## x __attribute__((__unused__))
 #endif
 
+#define XSTR(s) STR(s)
+#define STR(s) #s
+
 #ifdef DEBUG
 # define DBG(x) x
 #else
@@ -170,7 +173,7 @@ int Tbert_Init(Tcl_Interp *interp) {
     Tcl_CreateObjCommand(interp, "::tbert::unload_model", tbert_UnloadModelCmd, NULL, NULL);
     Tcl_CreateObjCommand(interp, "::tbert::ev", tbert_GetVectorCmd, NULL, NULL);
 
-    return Tcl_PkgProvide(interp, "tbert", "0.1");
+    return Tcl_PkgProvide(interp, "tbert", XSTR(VERSION));
 }
 
 #ifdef USE_NAVISERVER
