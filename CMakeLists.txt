@@ -19,27 +19,17 @@ set_target_properties(tbert PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 include(${CMAKE_CURRENT_LIST_DIR}/FindTCL.cmake)
 
-if (NAVISERVER)
-    include_directories(${NAVISERVER}/include)
-    target_link_directories(tbert PRIVATE ${NAVISERVER}/lib)
-    target_link_libraries(tbert PRIVATE bert ggml ${TCL_LIBRARY} nsd)
-    target_compile_options(tbert PRIVATE -DUSE_NAVISERVER)
-    install(TARGETS ${TARGET}
-            LIBRARY DESTINATION ${NAVISERVER}/bin
-    )
-else ()
-    link_directories(bert.cpp/build bert.cpp/build/ggml/src)
-    target_link_libraries(tbert PRIVATE bert ggml ${TCL_LIBRARY})
-    get_filename_component(TCL_LIBRARY_PATH "${TCL_LIBRARY}" PATH)
+link_directories(bert.cpp/build bert.cpp/build/ggml/src)
+target_link_libraries(tbert PRIVATE bert ggml ${TCL_LIBRARY})
+get_filename_component(TCL_LIBRARY_PATH "${TCL_LIBRARY}" PATH)
 
-    install(TARGETS ${TARGET}
-            LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/${TARGET}${PROJECT_VERSION}
-    )
+install(TARGETS ${TARGET}
+        LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/${TARGET}${PROJECT_VERSION}
+)
 
-    configure_file(pkgIndex.tcl.in pkgIndex.tcl @ONLY)
+configure_file(pkgIndex.tcl.in pkgIndex.tcl @ONLY)
 
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/pkgIndex.tcl
-            DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/${TARGET}${PROJECT_VERSION}
-    )
-endif()
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/pkgIndex.tcl
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/${TARGET}${PROJECT_VERSION}
+)
 
